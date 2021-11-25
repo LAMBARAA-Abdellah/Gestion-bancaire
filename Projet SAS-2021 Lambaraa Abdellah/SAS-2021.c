@@ -322,16 +322,17 @@ void DescChifre(compte *start){
 //======================Recherche par Cin==================================
 void Recherche(compte *start){
 	char cin[20];
+	int status=0;
 	if(start==NULL){
 		printf("\033[0;31m");
 		printf("La liste des comptes est vide, vous deverez creer des comptes premierment!!\n");
 		printf("\033[0m");
 	}else{
-	while(start){
 		printf("\tDonner votre Cin:");
 		printf("\033[0;33m ");
 		scanf("%s",cin);
 		printf("\033[0m");
+	while(start){
 		if(strcmp(start->Cin,cin)==0){
 			printf("\033[0;32m ");
 			printf("\n Affichage des information de compte:%s",cin);
@@ -343,13 +344,22 @@ void Recherche(compte *start){
 			printf("\t Montant:%.2f DH\n",start->Montant);
 			printf("\033[0m ");		
 			break;
-		}else{
+		}
+		/*
+		else{
 			printf("\033[0;31m");
 			printf("\n Votre cin est incorect\n");
 			printf("\033[0m");
 		}
+		*/
 		start=start->next;	
 	}
+	if(status==0){
+			printf("\033[0;31m");
+			printf("\n Votre cin est incorect\n");
+			printf("\033[0m");
+	}
+	
 	}
 }
 //=========================Effectuer une opertion Retrait ou Dépot=======================
@@ -357,6 +367,7 @@ void Operation(compte *start){
 	char opp;
 	char cin[20];
 	double val;
+	int status=0;
 	if(start==NULL){
 		printf("\033[0;31m");
 		printf("La liste des comptes est vide, vous deverez creer des comptes premierment!!\n");
@@ -379,6 +390,7 @@ void Operation(compte *start){
 		printf("\033[0m");
 		while(start){
 			if(strcmp(start->Cin,cin)==0){
+				status=1;
 				if(opp=='R'){
 					if(val>start->Montant){
 						printf("\033[0;31m ");
@@ -405,13 +417,20 @@ void Operation(compte *start){
 							
 					}
 				break;
-			}else{
+			}
+			/*					
+			else{
 				printf("\033[0;31m ");
 				printf("Ne se trouve aucun compte de %s\n",cin);
 				printf("\033[0m");
-			}
+			}*/
 			start=start->next;
 		}
+			if(status==0){
+			printf("\033[0;31m");
+			printf("\n Votre cin est incorect\n");
+			printf("\033[0m");
+	}
 		}
 }
 //=============Fidélisation Ajouter 1.3% aux comptes ayant les 3 premiers montants supérieurs================
